@@ -28,21 +28,19 @@ const client = new Client({
 
 // Configuration
 const config = {
-  token: 'bot-token',
-  whitelistRoleId: '1',
-  modpackChannelId: '1',
-  joinChannelId: '1',
-  rulesChannelId: '1'
+  token: 'MTM1MTM4ODE3MDAyNTA0MTk0MQ.Gkf9XC.7hb-Is8nzEhaYdB-SSk8q31OlTakt2tykF0QmU',
+  whitelistRoleId: '1351390465831731300',
+  joinChannelId: '1350203919711735818',
+  rulesChannelId: '1351298195459932200'
 };
 
 config.minecraft = {
-    pterodactyl: {
-      apiUrl: ``,
-      apiKey: '',
-      serverId: ''
-    },
-    whitelistPath: '/home/container/whitelist.json'
-  };
+  pterodactyl: {
+    apiUrl: `http://132.145.21.106/api/client/servers/42e21ae7-a2bb-4964-90a8-4133b9d5774d`,
+    apiKey: 'ptlc_T1Sk51lKnTFwTHGQLfO4IqGKFileL0kyR0Q5sxAYrtT',
+  },
+  whitelistPath: '/home/container/whitelist.json'
+};
   
 
 // Create database folder if it doesn't exist
@@ -237,7 +235,7 @@ async function updateMinecraftWhitelist() {
       
       
       console.log('Minecraft whitelist updated successfully.');
-  
+      await sendServerCommand('whitelist reload');
     } else {
       console.log('No changes needed for Minecraft whitelist.');
     }
@@ -245,7 +243,7 @@ async function updateMinecraftWhitelist() {
     console.error('Error updating Minecraft whitelist:', error.response?.data || error.message);
   }
 
-  await sendServerCommand('whitelist reload');
+  
 }
 
 async function sendServerCommand(command) {
@@ -346,7 +344,7 @@ async function registerCommands() {
     {
       name: 'show_whitelist',
       description: 'Show all whitelisted users',
-      defaultMemberPermissions: PermissionFlagsBits.Administrator
+      //defaultMemberPermissions: PermissionFlagsBits.Administrator
     },
     {
       name: 'rep',
@@ -419,10 +417,6 @@ async function registerCommands() {
         }
       ],
       defaultMemberPermissions: PermissionFlagsBits.Administrator
-    },
-    {
-      name: 'modpack',
-      description: 'Get information about the modpack and how to join'
     },
     {
       name: 'help',
@@ -527,6 +521,7 @@ async function registerCommands() {
     {
       name: 'console',
       description: 'Server console commands',
+      defaultMemberPermissions: PermissionFlagsBits.Administrator,
       options: [
         {
           name: 'send',
@@ -753,6 +748,7 @@ else if (commandName === 'force_unwhitelist') {
 
 // Send command to the console
 else if (commandName === 'console') {
+  const subcommand = options.getSubcommand();
   if (subcommand === 'send') {
     const message = options.getString('message');
     sendServerCommand(message);
@@ -1037,21 +1033,6 @@ else if (commandName === 'force_whitelist') {
       ephemeral: true
     });
   }
-
-  // Modpack command
-  else if (commandName === 'modpack') {
-    const embed = new EmbedBuilder()
-      .setTitle('Minecraft SMP Modpack Information')
-      .setDescription('Here are the links to get started with our SMP:')
-      .setColor('#72fd53')
-      .addFields(
-        { name: 'Quickstart Guide', value: `<#${config.modpackChannelId}>` },
-        { name: 'How to Join', value: `<#${config.joinChannelId}>` }
-      );
-
-    interaction.reply({ embeds: [embed] });
-  }
-
   // Help command
 // Help command
 else if (commandName === 'help') {
@@ -1062,7 +1043,6 @@ else if (commandName === 'help') {
       fields: [
         { name: '/help', value: 'Show this help menu' },
         { name: '/rules', value: 'View server rules' },
-        { name: '/modpack', value: 'Get information about the modpack and how to join' }
       ]
     },
     {
