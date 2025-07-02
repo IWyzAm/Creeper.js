@@ -28,16 +28,16 @@ const client = new Client({
 
 // Configuration
 const config = {
-  token: 'MTM1MTM4ODE3MDAyNTA0MTk0MQ.Gkf9XC.7hb-Is8nzEhaYdB-SSk8q31OlTakt2tykF0QmU',
-  whitelistRoleId: '1351390465831731300',
-  joinChannelId: '1350203919711735818',
-  rulesChannelId: '1351298195459932200'
+  token: '46u8780t780t06mi6m84546m8556m956m9956m5m9e9e5mr957m6', // fake token btw
+  whitelistRoleId: '1351390465831731300', // example
+  joinChannelId: '1350203919711735818', // example
+  rulesChannelId: '1351298195459932200' // example
 };
 
 config.minecraft = {
   pterodactyl: {
-    apiUrl: `http://132.145.21.106/api/client/servers/42e21ae7-a2bb-4964-90a8-4133b9d5774d`,
-    apiKey: 'ptlc_T1Sk51lKnTFwTHGQLfO4IqGKFileL0kyR0Q5sxAYrtT',
+    apiUrl: `http://132.145.21.106/api/client/servers/42e21ae7-a2bb-4964-90a8-4133b9d5774d`, // example
+    apiKey: 'ptlc_T1Sk51lKnTFwTHGQLfO4IqGKFileL0kyR0Q5sxAYrtT', // example
   },
   whitelistPath: '/home/container/whitelist.json'
 };
